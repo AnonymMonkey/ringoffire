@@ -8,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './player.component.scss',
 })
 export class PlayerComponent implements OnInit {
-  @Input()
-  name!: String;
+  @Input() name: String = '';
+  @Input() playerActive:boolean = false;
 
   constructor() {}
 
