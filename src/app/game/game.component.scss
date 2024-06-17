@@ -3,7 +3,7 @@
   width: 100vw;
   max-width: 100%;
 
-  background-image: url("/assets/img/background_empty.jpg");
+  background-image: url("./../../assets/img/background_empty.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -15,22 +15,24 @@
 
 .card-stack {
   position: relative;
-  > img {
+
+  img {
     position: absolute;
     width: 120px;
   }
+}
 
-  > img:last-child {
-    cursor: pointer;
-    transition: all 125ms ease-in-out;
+.top-card:nth-child(5) {
+  cursor: pointer;
+  transition: all 125ms ease-in-out;
 
-    &:hover {
-      transform: scale(1.1) translateY(-10px);
-    }
+  &:hover {
+    transform: scale(1.1) translateY(-10px);
   }
 }
 
 .played-card {
+  position: relative;
   right: 20px;
   transform: scale(1.2) translateX(140px) translateY(-180px) rotate(-10deg);
 }
@@ -47,9 +49,9 @@
   50% {
     transform: scale(1.5);
   }
-  /*   66% {
+  66% {
     transform: scale(1.5);
-  } */
+  }
   100% {
     transform: scale(1.2) translateX(140px) translateY(-180px) rotate(-10deg);
   }

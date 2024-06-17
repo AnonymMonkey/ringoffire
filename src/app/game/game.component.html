@@ -2,7 +2,7 @@
   *ngFor="let player of game.players; let i = index"
   [playerActive]="i == game.currentPlayer"
   [name]="player"
-  [ngStyle]="{ 'top.px': i == game.currentPlayer ? 100 : 150 + i * 60 }"
+  [ngStyle]="{ 'top.px': i == game.currentPlayer ? 100 : 210 + i * 60 }"
   class="player-position"
 ></app-player>
 
@@ -10,22 +10,23 @@
   <div class="card-stack">
     @for (c of [0, 1, 2, 3, 4]; track $index; let last = $last) {
       <img
-        (click)="takeCard($index)"
+        (click)="takeCard($index, last)"
+        class="top-card"
         [ngStyle]="{ 'right.px': $index * 5 }"
-        src="/assets/img/cards/card_cover.png"
+        src="assets/img/cards/card_cover.png"
         alt=""
       />
       @if (pickedCardIndex === $index && pickCardAnimation) {
         <img
           [ngStyle]="{ 'right.px': $index * 5 }"
           [class.pick-card]="pickedCardIndex === $index && pickCardAnimation"
-          src="/assets/img/cards/{{ currentCard }}.png"
+          src="assets/img/cards/{{ currentCard }}.png"
           alt=""
         />
       }
     }
     @for (card of game.playedCards; track $index) {
-      <img class="played-card" src="/assets/img/cards/{{ card }}.png" alt="" />
+      <img class="played-card" src="assets/img/cards/{{ card }}.png" alt="" />
     }
   </div>
 </div>

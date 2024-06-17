@@ -50,10 +50,9 @@ export class GameComponent implements OnInit {
     console.log(this.game);
   }
 
-  takeCard(index: number) {
+  takeCard(index: number, last: boolean) {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop() as string;
-      console.log(this.currentCard);
       this.pickedCardIndex = index;
       this.pickCardAnimation = true;
 
