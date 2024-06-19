@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from '../game-info/game-info.component';
+import { GameService } from '../firestore-service/game.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface DialogData {
   animal: string;
@@ -39,15 +41,25 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game!: Game;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    private route: ActivatedRoute,
+    private firestore: GameService,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.newGame();
+
+    this.route.params.subscribe((params) => {
+      console.log(params['id']);
+
+      this.firestore.getSingleDocRef(params['id']);
+      this.firestore.subSingleGameRef(params['id'], this.game);
+    });
   }
 
   newGame() {
     this.game = new Game();
-    console.log(this.game);
   }
 
   takeCard(index: number, last: boolean) {
