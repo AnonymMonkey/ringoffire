@@ -68,6 +68,7 @@ export class GameComponent implements OnInit {
       this.currentCard = this.game.stack.pop() as string;
       this.pickedCardIndex = index;
       this.pickCardAnimation = true;
+      this.saveGame();
 
       this.game.currentPlayer++;
       this.game.currentPlayer =
@@ -76,6 +77,7 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         this.pickCardAnimation = false;
         this.game.playedCards.push(this.currentCard);
+        this.saveGame();
       }, 1000);
     }
   }
