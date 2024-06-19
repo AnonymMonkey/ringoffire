@@ -6,23 +6,24 @@ import {
   addDoc,
   doc,
   docData,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Game } from '../../models/game';
-import { StartScreenComponent } from '../start-screen/start-screen.component';
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
   firestore: Firestore = inject(Firestore);
 
-  constructor(private startscreen: StartScreenComponent) {
-    this.getGameRef();
-  }
+  currentId!: string;
+
+  constructor() {}
 
   async add(obj: {}) {
     let data = await addDoc(this.getGameRef(), obj);
-    this.startscreen.currentId = data.id;
+    this.currentId = data.id;
+    return data.id;
   }
 
   getGameRef() {
@@ -47,5 +48,9 @@ export class GameService {
       game.playedCards = singleGame['playedCards'];
       game.currentPlayer = singleGame['currentPlayer'];
     });
+  }
+
+  async updateSingleGame(id: string, item: {}) {
+    await updateDoc(this.getSingleDocRef(id), item);
   }
 }

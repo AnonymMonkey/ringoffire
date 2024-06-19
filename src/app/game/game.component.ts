@@ -40,6 +40,7 @@ export class GameComponent implements OnInit {
 
   currentCard: string = '';
   game!: Game;
+  currentParams!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,8 +53,8 @@ export class GameComponent implements OnInit {
 
     this.route.params.subscribe((params) => {
       console.log(params['id']);
+      this.currentParams = params['id'];
 
-      this.firestore.getSingleDocRef(params['id']);
       this.firestore.subSingleGameRef(params['id'], this.game);
     });
   }
@@ -85,7 +86,12 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.saveGame();
       }
     });
+  }
+
+  saveGame() {
+    this.firestore.updateSingleGame(this.currentParams, this.game.toJson());
   }
 }

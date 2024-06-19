@@ -11,17 +11,14 @@ import { Game } from '../../models/game';
   styleUrls: ['./start-screen.component.scss'],
 })
 export class StartScreenComponent {
-  currentId!: string;
-
   constructor(
     private firestore: GameService,
     private router: Router,
   ) {}
 
-  newGame() {
+  async newGame() {
     let game = new Game();
-    this.firestore.add(game.toJson());
-    console.log(this.currentId);
-    this.router.navigateByUrl('/game');
+    let id = await this.firestore.add(game.toJson());
+    this.router.navigateByUrl('/game/' + id);
   }
 }
